@@ -1,0 +1,285 @@
+---
+title: "Calculate"
+author: Yuzhi Liu^[Master of Applied Statistics student at Department of Statistics,
+  Shanxi University of Finance and Economics .]
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    df_print: paged
+abstract: |
+  Using Monte Carlo method to calculate definite integral and compare the results .
+---
+
+# Introduction 
+I will use the Monte Carlo method to calculate the definite integral in the experiment with the approval at $n \in \{10^2, 10^3, 10^4\}$ at $t \in \{0.0, 0.67, 0.84, 1.28, 1.65, 2.32, 2.58, 3.09, 3.72\}$ to form a table. 
+
+# Math Equations 
+The form of definite integral is :
+the distribution function of $N(0, 1)$,
+\begin{equation}
+\Phi(t) = \int_{-\infty}^t \frac{1}{\sqrt{2\pi}} e^{-y^2 / 2} \dd y,
+(\#eq:cdf)
+  \end{equation}
+by the Monte Carlo methods:
+\begin{equation}
+\hat\Phi(t) = \frac{1}{n} \sum_{i=1}^n I(X_i \le t),
+  \end{equation}
+where $X_i$'s are a random sample from $N(0, 1)$, and $I(\cdot)$ is
+the indicator function. 
+  
+# Math Theorem Environments  
+According to the law of large numbers in probability theory, when the 
+number of random events is enough (tends to be positive infinity), 
+the occurrence frequency can be regarded as the probability of this event.
+
+In modeling and simulation, there are mainly two parts to apply Monte Carlo method: when a process is simulated by Monte Carlo method, all kinds of random variables of probability distribution are generated; the digital characteristics of the model are estimated by statistical method, so as to get the numerical solution of the problem, that is, the simulation result. The steps to solve the problem are as follows: 
+
+1. Construct a simple and applicable probability model or random model according to the proposed problem, so that the solution of the problem corresponds to some characteristics of the random variables in the model (such as probability, mean value, variance, etc.), and the constructed model should be consistent with the actual problem or system in terms of the main characteristic parameters. 
+ 
+ 
+2. According to the distribution of each random variable in the model, the random number is generated on the computer, which is enough for one simulation process. Generally, the random number of uniform distribution is generated first, and then the random number of a certain distribution is generated, then the random simulation test can be carried out. 
+
+
+3. According to the characteristics of probability model and the distribution characteristics of random variables, design and select appropriate sampling methods, and sample each random variable (including direct sampling, stratified 
+sampling, correlation sampling, important sampling, etc.). 
+
+
+4. According to the established model, carry out simulation test and calculation, and find out the random solution of the problem. 
+
+
+5. Statistical analysis of simulation test results, giving the probability solution of the problem and the accuracy estimation of the solution.   
+
+# Experimental result 
+Here's real value code
+```{r}
+for(t in c(0,0.67,0.84,1.28,1.65,2.32,2.58,3.09,3.72))
+{
+    g=function(x)
+    {exp(-x^2/2)/sqrt(2*pi);}
+h=integrate(g,t,Inf)
+print(h)
+}
+```
+
+Here's Monte Karlo code(N=10^2)
+```{r}
+z1=0;z2=0;z3=0;z4=0;z5=0;z6=0;z7=0;z8=0;z9=0;
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=0;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(0);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z1[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=0.65;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(0.65);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z2[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=0.84;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(0.84);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z3[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=1.28;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(1.28);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z4[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=1.65;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(1.65);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z5[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=2.32;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(2.32);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z6[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=2.58;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(2.58);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z7[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=3.09;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(3.09);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z8[m]=J_0;
+}
+m=0;
+while (m<=100)
+{
+  m=m+1
+  a=-10^1;
+  b=3.72;
+  g=function(x)
+  {
+    exp(-x^2/2)/sqrt(2*pi);
+  }
+  f=function(y)
+  {
+    (g(a+(b-a)*y)-c)/(d-c);
+  }
+  c=g(3.72);d=g(-10^1);s_0=(b-a)*(d-c);
+  n=10^2;
+  x=runif(n);y=runif(n);
+  mu_n=sum(y<=f(x));
+  J=mu_n/n;
+  J_0=s_0*J+c*(b-a);
+  z9[m]=J_0;
+}
+zz=rep(0,909)
+dim(zz)=c(101,9)
+ zz[1:101,1]=z1
+ zz[1:101,2]=z2
+ zz[1:101,3]=z3
+ zz[1:101,4]=z4
+ zz[1:101,5]=z5
+ zz[1:101,6]=z6
+ zz[1:101,7]=z7
+ zz[1:101,8]=z8
+ zz[1:101,9]=z9
+ View(zz)
+```
+          
+                 |t=0.0|t=0.67|t=0.84|t=1.28|t=1.65|t=2.32|t=2.58|t=3.09|t=3.72
+-------------    | --- | -----|------|------|------|------|------|------|------
+Monte Karlo(Mean)
+N=10^2           | 0.48| 0.69 |	0.69 | 0.55 |	0.38 | 0.13 |	0.07 | 0.02 | 0.003
+N=10^3           | 0.50| 0.68 |	0.66 | 0.55 |	0.38 | 0.13 |	0.07 | 0.02 |	0.003
+N=10^4           | 0.50| 0.67 |	0.67 | 0.55 |	0.38 | 0.13	| 0.07 | 0.02 |	0.003
+real value       | 0.50|	0.25|	0.20 | 0.10 |	0.05 | 0.01 | 0.005|0.001 |0.0001
